@@ -124,6 +124,10 @@ body {
     @apply text-[16px] font-[700];
   }
 
+  .h-100 {
+    @apply h-[550px];
+  }
+
   /* Hero */
   .hero-map {
     @apply absolute right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
@@ -136,7 +140,7 @@ body {
 
   /* Feature */
   .feature-phone {
-    @apply absolute top-[13%] z-10 hidden max-w-[1500px] rotate-[15deg] md:-left-16 lg:flex  3xl:left-20;
+    @apply absolute top-[30%] z-10 hidden max-w-[1500px] md:-left-1 lg:flex 3xl:left-20 rounded-r-5xl rounded-tl-5xl;
   }
 
   /* Get App */

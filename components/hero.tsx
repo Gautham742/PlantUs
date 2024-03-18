@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <section className="max-container padding-container flex flex-col gap-20 py-10 pb-32 md:gap-28 lg:py-20 xl:flex-row">
       <div className="hero-map" />
-      <Image className='absolute inset-0 object-cover w-full h-full group-hover:opacity-50'
+      <Image className='absolute inset-0 object-cover w-full h-100 group-hover:opacity-50'
         src="/wallpaper.svg"
         alt='wall'
         width={1080}
@@ -35,7 +35,7 @@ Become a plant pro with Plantus by your side
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default Hero
