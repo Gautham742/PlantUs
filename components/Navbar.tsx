@@ -1,10 +1,22 @@
 'use Login'
+'use client'
 import { NAV_LINKS } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
 import Button from "./button"
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '@/app/firebase/config'
+import { useRouter } from "next/navigation"
 
 const navbar = () => {
+  const [user] = useAuthState(auth);
+  const router = useRouter()
+  const userSession = sessionStorage.getItem('user');
+
+  if(!user){
+    router.push('/login')
+  }
+
   return (
     <nav className="flexBetween max-container padding-container relative z-30 py-5">
       <Link href="/">
@@ -18,7 +30,8 @@ const navbar = () => {
           </Link>
         ))}
       </ul>
-
+    
+    
       <div className="lg:flexCenter hidden">
         <Button
           href="/login"
@@ -38,8 +51,8 @@ const navbar = () => {
       />
       
     </nav>
-  )
-}
+  );
+};
 
 
 export default navbar

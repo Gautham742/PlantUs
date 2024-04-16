@@ -38,31 +38,62 @@ export const NAV_LINKS = [
 
   export const FEATURES = [
     {
-      title: 'Real maps can be offline',
+      title: 'Plant Identification',
       icon: '/map.svg',
       variant: 'green',
       description:
-        'We provide a solution for you to be able to use our application when climbing, yes offline maps you can use at any time there is no signal at the location',
+        'Identified plant name, scientific name and other relevant details related to healthy growth and care for the plant',
     },
     {
-      title: 'Set an adventure schedule',
+      title: 'Leaves or flower images',
       icon: '/calendar.svg',
       variant: 'green',
       description:
-        "Schedule an adventure with friends. On holidays, there are many interesting offers from Hilink. That way, there's no more discussion",
+        "Detailed information about the plant, including its botanical classification, optimal growing circumstances, need for sunlight and watering, and typical uses",
     },
     {
-      title: 'Technology using augment reality',
+      title: 'Plant Information Access',
       icon: '/tech.svg',
       variant: 'green',
       description:
         'Technology uses augmented reality as a guide to your hiking trail in the forest to the top of the mountain. Already supported by the latest technology without an internet connection',
     },
     {
-      title: 'Many new locations every month',
+      title: 'Plant Nursery Locator',
       icon: '/location.svg',
       variant: 'orange',
       description:
-        'Lots of new locations every month, because we have a worldwide community of climbers who share their best experiences with climbing',
+        'Users should be able to find informations about nearby plant nurseries based on their location',
+    },
+  ];
+
+  export const PLANTS = [
+    {
+      title: 'Plant Identification',
+      icon: '/map.svg',
+      variant: 'green',
+      description:
+        'Identified plant name, scientific name and other relevant details related to healthy growth and care for the plant',
+    },
+    {
+      title: 'Leaves or flower images',
+      icon: '/calendar.svg',
+      variant: 'green',
+      description:
+        "Detailed information about the plant, including its botanical classification, optimal growing circumstances, need for sunlight and watering, and typical uses",
+    },
+    {
+      title: 'Plant Information Access',
+      icon: '/tech.svg',
+      variant: 'green',
+      description:
+        'Technology uses augmented reality as a guide to your hiking trail in the forest to the top of the mountain. Already supported by the latest technology without an internet connection',
+    },
+    {
+      title: 'Plant Nursery Locator',
+      icon: '/location.svg',
+      variant: 'orange',
+      description:
+        'Users should be able to find informations about nearby plant nurseries based on their location',
     },
   ];
