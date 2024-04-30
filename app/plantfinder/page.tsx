@@ -24,15 +24,18 @@ const Home: React.FC = () => {
     }
   };
 
+  const removeImage = () => {
+    setSelectedFile(null);
+  };
+
   const identifyItem = async () => {
-    // Here you can implement logic to identify the item using an API
+    if (!selectedFile) return; // Check if a file is selected
     try {
+      const formData = new FormData();
+      formData.append('image', selectedFile);
       const response = await fetch('https://api.example.com/identify', {
         method: 'POST',
-        body: JSON.stringify({ image: selectedFile }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        body: formData,
       });
       const data = await response.json();
       setItemDetails(data);
@@ -42,13 +45,35 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto mt-10 text-center">
+    <div className="container mx-auto mt-10 mb-10 text-center">
       <h1 className="text-3xl font-bold mb-8">Upload and Identify Item</h1>
       <div
-        className="border border-dashed border-gray-400 p-8 mb-8"
+        className="border-2 border-dashed border-gray-400 hover:border-gray-700 p-8 mb-8 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-32 relative flex items-center justify-center"
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
+        {selectedFile && (
+          <>
+            <button
+              className="absolute top-2 right-2 bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+              onClick={removeImage}
+            >
+              X
+            </button>
+            <div className="flex flex-col items-center">
+              <img src={URL.createObjectURL(selectedFile)} alt="Uploaded" className="max-w-full h-auto mb-4" />
+              <span className="block mt-4">Uploaded Image</span>
+            </div>
+          </>
+        )}
+        {!selectedFile && (
+          <label htmlFor="fileInput" className="cursor-pointer">
+            <div className="text-gray-500 mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-32">
+              <img src="upload.svg" alt="upload" className=" mx-4 sm:mx-8 md:mx-16 lg:mx-24 xl:mx-32 w-36" />
+              <span className="block mt-4">Drop or click to upload an image</span>
+            </div>
+          </label>
+        )}
         <input
           type="file"
           accept="image/*"
@@ -56,18 +81,9 @@ const Home: React.FC = () => {
           onChange={handleFileChange}
           id="fileInput"
         />
-        <label htmlFor="fileInput" className="cursor-pointer">
-          {selectedFile ? (
-            <img src={URL.createObjectURL(selectedFile)} alt="Uploaded" className="max-w-full h-auto mb-4" />
-          ) : (
-            <div className="text-gray-500">
-              <span className="text-xl">Drop or click to upload an image</span>
-            </div>
-          )}
-        </label>
       </div>
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="border-green-50 bg-green-50 hover:bg-green-700 delay-150 text-white font-bold py-2 px-4 rounded"
         onClick={identifyItem}
         disabled={!selectedFile}
       >
