@@ -8,7 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '@/app/firebase/config';
 import { db } from '@/app/firebase/config';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { NAV_LINKS } from "@/constants";
+import { NAV_LINKS } from "@/constants/Index";
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
