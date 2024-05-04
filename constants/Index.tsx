@@ -72,4 +72,17 @@ export const NAV_LINKS = [
     name: string;
     imageurl: string;
     description: string;
+    botanicalname: string;
+    family: string;
+    planttype: string;
+    maturesize: string;
+    temperature: string;
+    sunexposure: string;
+    water: string;
+    soiltype: string;
+    fertilizer: string;
+    soilph: string;
+    bloomtime: string;
+    flowercolor: string;
   }
+  

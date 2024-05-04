@@ -1,8 +1,8 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, getDocs, DocumentData } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, DocumentData, DocumentSnapshot, getDoc, doc } from 'firebase/firestore';
 import { Plant } from '@/constants/Index';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage'; // Import necessary functions for fetching image URLs
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -26,14 +26,26 @@ export const getPlantsFromFirebase = async (): Promise<Plant[]> => {
   for (const doc of snapshot.docs) {
     const data = doc.data() as DocumentData;
 
-    // Fetch image URL from Firebase Storage
+
     const imageUrl = await getPlantImageUrl(doc.id);
 
     plants.push({
       id: doc.id,
       name: data.name,
-      imageurl: imageUrl, // Use fetched image URL
+      imageurl: imageUrl,
       description: data.description,
+      botanicalname: data.botanicalName,
+      family: data.family,
+      planttype: data.plantType,
+      maturesize: data.matureSize,
+      temperature: data.temperature,
+      sunexposure: data.sunExposure,
+      water: data.water,
+      soiltype: data.soilType,
+      fertilizer: data.fertilizer,
+      soilph: data.soilPH,
+      bloomtime: data.bloomTime,
+      flowercolor: data.flowerColor,
     });
   }
 
@@ -46,8 +58,27 @@ async function getPlantImageUrl(plantId: string): Promise<string> {
     return await getDownloadURL(imageUrlRef);
   } catch (error) {
     console.error('Error getting plant image URL:', error);
-    return ''; // Return empty string if image URL couldn't be fetched
+    return ''; 
   }
 };
 
-export { app, auth, storage, db }; // Export necessary variables
+
+export const getPlantById = async (id: string) => {
+  try {
+    const plantDocRef = doc(getFirestore(), `plants/${id}`); // Reference to the document
+    const plantDocSnapshot: DocumentSnapshot = await getDoc(plantDocRef); // Fetch document snapshot
+    if (plantDocSnapshot.exists()) {
+      return plantDocSnapshot.data();
+    } else {
+      console.error('Plant not found');
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching plant:', error);
+    return null;
+  }
+};
+
+
+
+export { app, auth, storage, db };
