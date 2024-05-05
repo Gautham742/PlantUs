@@ -29,7 +29,9 @@ const PlantsPage: React.FC = () => {
   return (
     <div>
       <p className="text-center text-3xl font-bold my-6">Plants</p>
+      <div className='relative flex items-centers justify-center'>
       <SearchBar onSearch={handleSearch} />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredPlants.map((plant) => (
           <PlantCard key={plant.id} plant={plant} />

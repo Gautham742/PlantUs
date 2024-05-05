@@ -1,12 +1,12 @@
 import React from 'react';
 
 interface LimitedParagraphProps {
-  content: string;
+  content?: string;
   limit: number;
 }
 
 const LimitedParagraph: React.FC<LimitedParagraphProps> = ({ content, limit }) => {
-  const words = content.split(' ');
+  const words = content ? content.split(' ') : [];
 
   if (words.length <= limit) {
     return <p>{content}</p>;

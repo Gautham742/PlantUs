@@ -19,7 +19,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
       placeholder="Search plants..."
       value={query}
       onChange={handleChange}
-      className="border border-gray-300 mx-16 px-4 py-2 rounded-md focus:outline-none focus:border-green-50"
+      className="border border-gray-300 mx-16 px-16 py-2 rounded-md focus:outline-none focus:border-green-50"
     />
   );
 };

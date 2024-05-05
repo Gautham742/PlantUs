@@ -63,12 +63,32 @@ async function getPlantImageUrl(plantId: string): Promise<string> {
 };
 
 
-export const getPlantById = async (id: string) => {
+export const getPlantById = async (id: string): Promise<Plant | null> => {
   try {
-    const plantDocRef = doc(getFirestore(), `plants/${id}`); // Reference to the document
-    const plantDocSnapshot: DocumentSnapshot = await getDoc(plantDocRef); // Fetch document snapshot
+    const plantDocRef = doc(getFirestore(), `plants/${id}`);
+    const plantDocSnapshot: DocumentSnapshot = await getDoc(plantDocRef);
     if (plantDocSnapshot.exists()) {
-      return plantDocSnapshot.data();
+      const data = plantDocSnapshot.data();
+      // Ensure that the data conforms to the Plant interface
+      const plantData: Plant = {
+        id: plantDocSnapshot.id,
+        name: data.name,
+        imageurl: data.imageurl,
+        description: data.description,
+        botanicalname: data.botanicalName,
+        family: data.family,
+        planttype: data.plantType,
+        maturesize: data.matureSize,
+        temperature: data.temperature,
+        sunexposure: data.sunExposure,
+        water: data.water,
+        soiltype: data.soilType,
+        fertilizer: data.fertilizer,
+        soilph: data.soilPH,
+        bloomtime: data.bloomTime,
+        flowercolor: data.flowerColor,
+      };
+      return plantData;
     } else {
       console.error('Plant not found');
       return null;
@@ -78,6 +98,7 @@ export const getPlantById = async (id: string) => {
     return null;
   }
 };
+
 
 
 

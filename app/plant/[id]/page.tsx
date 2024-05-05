@@ -1,15 +1,34 @@
 "use client"
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Plant } from '@/constants/Index';
 import { getPlantsFromFirebase } from '@/app/firebase/config';
 
-interface PlantDetailsProps {
-    plant?: Plant | null;
-  }
+const PlantDetails: React.FC = () => {
+  const [plant, setPlant] = useState<Plant | null>(null);
 
-  const PlantDetails: React.FC<PlantDetailsProps> = ({ plant }) => {
-    console.log('Plant details page loaded');
+  useEffect(() => {
+    const id = getIdFromPath();
+    if (id) {
+      fetchPlantDetails(id);
+    }
+  }, []);
+
+  const getIdFromPath = () => {
+    const path = window.location.pathname;
+    // Assuming the path is like '/plant/id', split it and get the last part as the id
+    const parts = path.split('/');
+    return parts[parts.length - 1];
+  };
+
+  const fetchPlantDetails = async (plantId: string) => {
+    try {
+      const plants = await getPlantsFromFirebase();
+      const plant = plants.find(p => p.id === plantId);
+      setPlant(plant || null);
+    } catch (error) {
+      console.error('Error fetching plant details:', error);
+    }
+  };
 
   if (!plant) {
     return <div>Loading...</div>;
@@ -46,27 +65,5 @@ interface PlantDetailsProps {
     </div>
   );
 };
-const fetchPlantDetails = async (plantId: string, setPlant: React.Dispatch<React.SetStateAction<Plant | null>>) => {
-    try {
-      const plants = await getPlantsFromFirebase();
-      const plant = plants.find((p) => p.id === plantId);
-      setPlant(plant || null);
-    } catch (error) {
-      console.error('Error fetching plant details:', error);
-    }
-  };
-  
-  export function PlantId() {
-    const router = useRouter();
-    const { plantId } = router.query;
-    const [plant, setPlant] = useState<Plant | null>(null);
-  
-    useEffect(() => {
-      if (plantId) {
-        fetchPlantDetails(plantId as string, setPlant);
-      }
-    }, [plantId]);
-  
-    return <PlantDetails plant={plant} />;
-  }
+
 export default PlantDetails;
