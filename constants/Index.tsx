@@ -86,3 +86,14 @@ export const NAV_LINKS = [
     flowercolor: string;
   }
   
+  export interface Nursery {
+    id: string;
+    name: string;
+    imageurl: string;
+    place: string;
+    address: string;
+    location: {
+      latitude: number;
+      longitude: number;
+    };
+  }
